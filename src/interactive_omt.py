@@ -38,9 +38,10 @@ omt_signal = generate_omt_signal(t, omt_freq_hz, omt_freq_sd, amp_mean, amp_sd, 
 
 # Prepare DataFrames for Plotnine
 df_time = pd.DataFrame({"time": t, "amplitude": omt_signal})
-freqs = np.fft.rfftfreq(len(t), d=1 / fs)[20:200]
-fft_vals = np.abs(np.fft.rfft(omt_signal))[20:200]
+freqs = np.fft.rfftfreq(len(t), d=1 / fs)
+fft_vals = np.abs(np.fft.rfft(omt_signal))
 df_fft = pd.DataFrame({"frequency": freqs, "magnitude": fft_vals})
+df_fft = df_fft[(df_fft['frequency'] >= 20) & (df_fft['frequency'] <= 150)]
 
 # Create Plotnine plots
 p_time = (
