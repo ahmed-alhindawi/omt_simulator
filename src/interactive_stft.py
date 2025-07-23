@@ -61,7 +61,7 @@ st.title("OMT Signal: STFT Sliding Window and Frame FFT")
 # --- Sidebar Parameters ---
 with st.sidebar:
     duration = st.slider("Signal Duration (s)", 1.0, 5.0, 2.0, 0.5)
-    fs = st.slider("Sampling Rate (Hz)", 500, 5000, 2400, 100)
+    fs = st.slider("Sampling Rate (Hz)", 500, 5000, 4800, 100)
     omt_freq_hz = st.slider("OMT Frequency (Hz)", 40, 100, 80)
     omt_freq_sd = st.slider("Frequency SD", 0.0, 10.0, 5.0)
     amp_mean = st.slider("Amplitude Mean (mV)", 0.1, 5.0, 1.0) * 1e-3
