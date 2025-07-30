@@ -1,0 +1,37 @@
+{
+    "build": {
+        "context": "..",
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "charliermarsh.ruff",
+                "ms-python.python",
+                "ms-toolsai.datawrangler",
+                "ms-python.debugpy",
+                "ms-toolsai.jupyter"
+            ]
+        }
+    },
+    "privileged": true,
+    "runArgs": [
+        "--runtime=nvidia",
+        "--gpus=all",
+        "--ipc=host",
+        "--network=host",
+        "--rm",
+        "--volume=${localEnv:HOME}/datasets:/datasets"
+    ],
+    "shutdownAction": "none",
+    "containerUser": "root",
+    "remoteUser": "root",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    "portsAttributes": {
+        "5000": {
+            "label": "mlflow"
+        }
+    }
+}
