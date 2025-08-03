@@ -17,8 +17,8 @@
     },
     "privileged": true,
     "runArgs": [
-        "--device=nvidia.com/gpu=all",
-        "--security-opt=label=disable",
+        "--gpus=all",
+        "--runtime=nvidia",
         "--ipc=host",
         "--network=host",
         "--rm",
