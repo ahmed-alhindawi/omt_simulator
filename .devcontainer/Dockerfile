@@ -1,18 +1,26 @@
-FROM ubuntu:24.04
+FROM docker.io/ubuntu:24.04
 
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
-    python3.12-venv \
-    python3-tk \
-    git \
-    screen \
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates curl git build-essential pkg-config tk-dev openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
-ENV VIRTUAL_ENV=/root/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Install dependencies:
-COPY requirements.txt .
-RUN --mount=type=cache,target=/root/.cache/ pip install -r requirements.txt
+ENV UV_NO_PROGRESS=1 \
+    UV_LINK_MODE=copy \
+    UV_PROJECT_ENVIRONMENT=/opt/venv
+
+WORKDIR /tmp/build
+COPY pyproject.toml uv.lock ./
+
+ARG PYTHON_VERSION=3.13
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv python install ${PYTHON_VERSION} && \
+    uv venv --python ${PYTHON_VERSION} && \
+    uv sync --frozen --no-install-project
+
+ENV VIRTUAL_ENV=/opt/venv
+ENV PATH=/opt/venv/bin:$PATH
+
+WORKDIR /workspace

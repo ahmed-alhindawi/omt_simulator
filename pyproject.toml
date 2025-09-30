@@ -1,0 +1,20 @@
+[project]
+name = "workspace"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "h5py",
+    "ipykernel",
+    "ipywidgets",
+    "ipython",
+    "matplotlib",
+    "numpy>=2.0",
+    "pandas>=2.3",
+    "plotnine>=0.15",
+    "polars>=1.31.0",
+    "pyarrow>=21.0.0",
+    "scikit-misc",
+    "scipy",
+    "statsmodels",
+    "tqdm"
+]

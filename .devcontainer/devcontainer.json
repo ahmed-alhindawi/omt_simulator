@@ -3,6 +3,12 @@
         "context": "..",
         "dockerfile": "Dockerfile"
     },
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    "mounts": [
+        "type=volume,source=uv-cache,target=/root/.cache/uv",
+        "source=${localEnv:HOME}/datasets,target=/datasets,type=bind"
+    ],
     "customizations": {
         "vscode": {
             "extensions": [
@@ -17,21 +23,9 @@
     },
     "privileged": true,
     "runArgs": [
-        "--gpus=all",
-        "--runtime=nvidia",
-        "--ipc=host",
-        "--network=host",
-        "--rm",
-        "--volume=${localEnv:HOME}/datasets:/datasets"
+        "--device=nvidia.com/gpu=all",
+        "--security-opt=label=disable"
     ],
-    "shutdownAction": "none",
     "containerUser": "root",
-    "remoteUser": "root",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-    "workspaceFolder": "/workspace",
-    "portsAttributes": {
-        "5000": {
-            "label": "mlflow"
-        }
-    }
+    "remoteUser": "root"
 }
