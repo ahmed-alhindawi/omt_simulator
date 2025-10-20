@@ -16,5 +16,6 @@ dependencies = [
     "scikit-misc",
     "scipy",
     "statsmodels",
-    "tqdm"
+    "tqdm",
+    "joblib>=1.5.2",
 ]
