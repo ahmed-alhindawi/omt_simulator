@@ -1,4 +1,5 @@
 {
+    "name": "CON-DOMT",
     "build": {
         "context": "..",
         "dockerfile": "Dockerfile"
